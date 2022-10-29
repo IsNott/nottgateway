@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: nott-gateway
+server:
+  port: 5000

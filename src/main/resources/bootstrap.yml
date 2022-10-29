@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true # 从注册中心开启动态创建路由
+          url-expression: "'lb://' + serviceId"
+      routes:
+        - id: ims_path_route #路由id
+          #          uri: ${service-url.user-service}/get/{id} # 匹配后路由地址
+          uri: lb://ims
+          predicates: # 断言，匹配后转发
+            - Path=/ims/**
+          filters:
+            - StripPrefix=1
